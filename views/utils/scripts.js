@@ -12,7 +12,6 @@ var redMarker = new standardIcon({iconUrl: 'https://raw.githubusercontent.com/po
 var greenMarker = new standardIcon({iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png'})
 var blueMarker = new standardIcon({iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'})
 var violetMarker = new standardIcon({iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png'})
-// Update text
 /**
  * Updates the text content of an HTML element with a given ID.
  * @param {string} identificator - The ID of the HTML element to update.
@@ -24,7 +23,6 @@ const updateText = (identificator, newText)=>{
         oldText.textContent = newText
     }
 }
-// Show prices
 /**
  * Shows the prices for a given tour.
  * @param {string} identificator - The ID of the HTML element to update.
@@ -43,7 +41,6 @@ const showPrices = (identificator, prices)=>{
         container.appendChild(ul)
     }
 }
-// Show Tours
 const tourList = ["Cancun", "Chiapas", "Chela Tour", "Oaxaca"]
 /**
  * Shows the prices for a given tour.
@@ -61,7 +58,6 @@ const showTours = (identificator, tours) => {
         })
     }
 }
-// Show itinerary
 const itineraryOldHTML = '<h3 id="resumenTitle">Conoce nuestros tours</h3><p id="resumen"></p><ul id="list"><li>Cancun</li><li>Tlaxcala</li><li>Queretaro</li><li>Michoacan</li><li>Chiapas</li></ul>'
 /**
  * Shows the itinerary for the day
@@ -74,5 +70,25 @@ const showItinerary = (identificator, itinerary) => {
         container.innerHTML = itinerary
     }
 }
+/**
+ *  Binds properties to markers
+ * @param {object} marker - Marker to bind.
+ * @param {string} popupText - Text for the popup
+ * @param {string} description - Description for the day
+ */
+const bindMarkerEvents = (marker, popupText, description) => {
+    marker.bindPopup(popupText)
+    marker.on("mouseover", function(){
+        this.openPopup()
+    })
+    marker.on("mouseout", function(){
+        this.closePopup()
+    })
+    marker.on("click", function(e){
+        showItinerary("infoContainer", description)
+        e.originalEvent.stopPropagation()
+    })
+}
 
-export { redMarker, greenMarker, blueMarker, violetMarker, updateText, showPrices, showTours,showItinerary, tourList, itineraryOldHTML }
+
+export { redMarker, greenMarker, blueMarker, violetMarker, updateText, showPrices, showTours,showItinerary, tourList, itineraryOldHTML, bindMarkerEvents }
