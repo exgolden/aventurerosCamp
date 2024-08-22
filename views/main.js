@@ -1,12 +1,13 @@
 // Imports
-import { cancunObject } from "./utils/cancun/cancunObject.js"
-import { redMarker, greenMarker, blueMarker, violetMarker, updateText, showPrices, showTours, showItinerary, tourList, itineraryOldHTML, bindMarkerEvents } from "./utils/scripts.js"
+import { cancunObject } from "./utils/tours/cancun/cancunObject.js"
+import { redMarker, greenMarker, blueMarker, violetMarker } from "./utils/scripts.js"
+import { showPrices, bindMarkerEvents, updateHTML, rightPanelOldHTML } from "./utils/scripts.js"
 // -------------------------------------------------- Mapa ---------------------------------------------------------
 const center = [23.51, -102.41]
 const zoom = 4.5
 let addedMarkers = []
 let addedCurve
-const map = L.map('map').setView(center, zoom)
+const map = L.map('map', { zoomControl: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false }).setView(center, zoom)
 map.dragging.disable()
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
     maxZoom: 20,
@@ -54,12 +55,12 @@ cancunTourMarker.on("click", function(e) {
             opacity: 0.6
         }
     ).addTo(map)
-// Updates tour name
-    updateText("tourName", cancunObject.nombre)
-    updateText("resumenTitle", "")
-// Updates cancun resumee
-    updateText("resumen", cancunObject.resumen)
-    showPrices("list", cancunObject.precios)
+    // Updates tour info
+    updateHTML("infoContainer", cancunObject.cancunTour.description)
+    // Ads tour dates
+    updateHTML("fecha", cancunObject.fecha)
+    // Ads tour prices
+    //showPrices("pricelist", cancunObject.precios)
     e.originalEvent.stopPropagation()
 })
 // Hide Tour
@@ -69,10 +70,7 @@ map.on("click", function() {
     if (addedCurve) {
         map.removeLayer(addedCurve)
     }
-    updateText("tourName", "Tours")
-    updateText("resumenTitle", "Conoce nuestros tours")
-    updateText("resumen", "")
-    showItinerary("infoContainer", itineraryOldHTML)
-    showTours("list", tourList)
+    // Shows original tours info
+    updateHTML("infoContainer", rightPanelOldHTML) 
     map.setView(center, zoom)
 })

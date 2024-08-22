@@ -3,68 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AventurerosCamp</title>
+    <title>Aventureros Camp</title>
     <!-- Bootstrap CSS -->
     <link 
         rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- leaflet css -->
+    <!-- Leaflet CSS -->
     <link 
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
-    <!-- css -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="./styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .top-panel {
+            background-color: #A0D8EF;
+            border-bottom-right-radius: 15px; /* Only the bottom right corner is rounded */
+        }
+        .logo img {
+            width: 60%; /* Adjust logo size to 60% of its container */
+        }
+        .nav-link {
+            color: #333333;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #555555;
+        }
+        .left-panel {
+            background-color: #B2E4A2;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .right-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #map {
+            width: 90%;
+            height: 90%;
+            border-radius: 10px;
+        }
+        #map-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .trip-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #F1F1F1;
+            border-radius: 5px;
+        }
+        .trip-item:hover {
+            background-color: #e1e1e1;
+        }
+        footer {
+            background-color: #FFFFFF;
+            text-align: center;
+            border-top: 1px solid #e1e1e1;
+            padding: 10px 0;
+        }
+        footer .social-icons a {
+            margin: 0 10px;
+            color: #333333;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        footer .social-icons a:hover {
+            color: #A0D8EF;
+        }
+        footer p {
+            margin: 5px 0 0;
+            color: #777777;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Banner</h1>
+    <!-- Top Panel -->
+    <header class="top-panel d-flex justify-content-between align-items-center p-3">
+        <div class="logo">
+            <img src="utils/images/pataPerroLogo.png" alt="Aventureros Camp Logo">
+        </div>
+        <nav class="d-flex">
+            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#">Sales</a>
+            <a class="nav-link" href="#">About Us</a>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container-fluid d-flex flex-grow-1 p-0">
+        <!-- Left Panel: Trip Information -->
+        <div class="left-panel col-md-3 d-flex flex-column">
+            <div id="infoContainer">
+                <h3>Conoce nuestros tours</h3>
+                <ul id="list">
+                    <li>Cancun, Sureste Mexicano.</li>
+                    <li>Val'Quirico y Tlaxcala.</li>
+                    <li>Chelatour, Queretaro.</li>
+                    <li>Sierra Gorda y Pinal de los Amoles, Queretaro.</li>
+                    <li>El Oro y Tlalpujahua, Michoacan.</li>
+                    <li>10 Cascadas Honey y Pahuatlan, Puebla.</li>
+                    <li>Dia de Muertos, Michoacan.</li>
+                    <li>Chiapas, La Ultima Frontera.</li>
+                </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <h1 id="tourName">Tours</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div id="infoContainer">
-                    <h3 id="resumenTitle">Conoce nuestros tours</h3>
-                    <p id="resumen"></p>
-                    <ul id="list">
-                        <li>Cancun</li>
-                        <li>Tlaxcala</li>
-                        <li>Queretaro</li>
-                        <li>Michoacan</li>
-                        <li>Chiapas</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div id="map-container">
-                    <div id="map"></div>
-                </div>
+        <!-- Right Panel: Map Display -->
+        <div class="right-panel col-md-9">
+            <div id="map-container" class="w-100 h-100">
+                <div id="map"></div>
             </div>
         </div>
     </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>&copy; 2024 Aventureros Camp. All Rights Reserved.</p>
+        <p>Privacy Policy | Terms of Service | Legal Information</p>
+    </footer>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- leaflets js -->
+    <!-- Leaflet JS -->
     <script 
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin="">
     </script>
     <script src="https://elfalem.github.io/Leaflet.curve/src/leaflet.curve.js"></script>
-    <!-- js scripts -->
+    <!-- JS Scripts -->
     <script type="module">
-        import { cancunObject} from "./utils/cancun/cancunObject.js"
-        import { redMarker, greenMarker, blueMarker, violetMarker, updateText, showPrices, showTours, tourList, showItinerary, itineraryOldHTML,bindmarkerEvents } from "./utils/scripts.js"
+        import { cancunObject } from "./utils/tours/cancun/cancunObject.js";
+        import { redMarker, greenMarker, blueMarker, violetMarker } from "./utils/scripts.js"
+import { showPrices, bindMarkerEvents, updateHTML, rightPanelOldHTML } from "./utils/scripts.js"
     </script>
     <script type="module" src="./main.js"></script>
 </body>

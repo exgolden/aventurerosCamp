@@ -12,15 +12,30 @@ var redMarker = new standardIcon({iconUrl: 'https://raw.githubusercontent.com/po
 var greenMarker = new standardIcon({iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png'})
 var blueMarker = new standardIcon({iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'})
 var violetMarker = new standardIcon({iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png'})
+// HTML Snippets
+const rightPanelOldHTML = `
+<h3>Conoce nuestros tours</h3>
+<ul id="list">
+    <li>Cancun, Sureste Mexicano.</li>
+    <li>Val'Quirico y Tlaxcala.</li>
+    <li>Chelatour, Queretaro.</li>
+    <li>Sierra Gorda y Pinal de los Amoles, Queretaro.</li>
+    <li>El Oro y Tlalpujahua, Michoacan.</li>
+    <li>10 Cascadas Honey y Pahuatlan, Puebla.</li>
+    <li>Dia de Muertos, Michoacan.</li>
+    <li>Chiapas, La Ultima Frontera.</li>
+</ul>
+`
+
 /**
- * Updates the text content of an HTML element with a given ID.
- * @param {string} identificator - The ID of the HTML element to update.
- * @param {string} newText - The new text to set as the content.
+ * Replace HTML
+ * @param {string} indetificator - The ID of the HTML element to update
+ * @param {string} newHTML - New HTML element to show
  */
-const updateText = (identificator, newText)=>{
-    let oldText = document.getElementById(identificator)
-    if(oldText){
-        oldText.textContent = newText
+const updateHTML = (indentificator, newHTML) => {
+    let container = document.getElementById(indentificator)
+    if(container){
+        container.innerHTML = newHTML
     }
 }
 /**
@@ -41,35 +56,6 @@ const showPrices = (identificator, prices)=>{
         container.appendChild(ul)
     }
 }
-const tourList = ["Cancun", "Chiapas", "Chela Tour", "Oaxaca"]
-/**
- * Shows the prices for a given tour.
- * @param {string} identificator - The ID of the HTML element to update.
- * @param {string[]} tours - Tours list
- */
-const showTours = (identificator, tours) => {
-    let container = document.getElementById(identificator)
-    if(container){
-        container.innerHTML = ""
-        tours.forEach(tour => {
-            const li = document.createElement("li")
-            li.textContent = tour
-            container.appendChild(li)
-        })
-    }
-}
-const itineraryOldHTML = '<h3 id="resumenTitle">Conoce nuestros tours</h3><p id="resumen"></p><ul id="list"><li>Cancun</li><li>Tlaxcala</li><li>Queretaro</li><li>Michoacan</li><li>Chiapas</li></ul>'
-/**
- * Shows the itinerary for the day
- * @param {string} identificator - The ID of the HTML element to update.
- * @param {string} itinerary - Brief description of the day.
- */
-const showItinerary = (identificator, itinerary) => {
-    let container = document.getElementById(identificator)
-    if(container){
-        container.innerHTML = itinerary
-    }
-}
 /**
  *  Binds properties to markers
  * @param {object} marker - Marker to bind.
@@ -85,10 +71,8 @@ const bindMarkerEvents = (marker, popupText, description) => {
         this.closePopup()
     })
     marker.on("click", function(e){
-        showItinerary("infoContainer", description)
+        updateHTML("infoContainer", description)
         e.originalEvent.stopPropagation()
     })
 }
-
-
-export { redMarker, greenMarker, blueMarker, violetMarker, updateText, showPrices, showTours,showItinerary, tourList, itineraryOldHTML, bindMarkerEvents }
+export { redMarker, greenMarker, blueMarker, violetMarker, showPrices, bindMarkerEvents, updateHTML, rightPanelOldHTML }
